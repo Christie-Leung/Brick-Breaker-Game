@@ -7,8 +7,9 @@ Date Created: 2021-03-08
 import pygame
 from window import Window
 from imageSprite import ImageSprite
-from loader import Color
+from loader import Color, Image
 from text import Text
+from random import randrange
 
 class Game:
     pygame.init()
@@ -16,9 +17,26 @@ class Game:
         ## Setup
         self.WINDOW = Window()
         self.WINDOW.setBackgroundImage(Image.BACKGROUND)
+        self.TITLE = ImageSprite(Image.TITLE)
+        self.TITLE.setPOS((self.WINDOW.getVirtualWidth()-self.TITLE.getWidth())//2, 50)
+        """
         self.PLAYER = ImageSprite(Image.PLAYER)
         self.PLAYER.setScale(2)
         self.PLAYER.setPOS(((self.WINDOW.getVirtualWidth()-self.PLAYER.getWidth())//2), ((self.WINDOW.getVirtualHeight() - self.PLAYER.getHeight())//2))
+"""
+        #Difficulty
+        self.EASY_IMG = ImageSprite(Image.EASY)
+        self.EASY_IMG.setScale(2)
+        self.EASY_IMG.setPOS((self.WINDOW.getVirtualWidth()-self.EASY_IMG.getWidth())//2,
+                             7*(2*self.WINDOW.getVirtualHeight()//3 - self.EASY_IMG.getHeight())//8)
+        self.MED_IMG = ImageSprite(Image.MED)
+        self.MED_IMG.setScale(2)
+        self.MED_IMG.setPOS((self.WINDOW.getVirtualWidth() - self.MED_IMG.getWidth()) // 2,
+                             self.EASY_IMG.getY() + self.EASY_IMG.getHeight() + 5)
+        self.HARD_IMG = ImageSprite(Image.HARD)
+        self.HARD_IMG.setScale(2)
+        self.HARD_IMG.setPOS((self.WINDOW.getVirtualWidth() - self.HARD_IMG.getWidth()) // 2,
+                             self.MED_IMG.getY() + self.MED_IMG.getHeight() + 5)
         self.DIFFICULTY = 0
 
         # Lives
@@ -26,8 +44,9 @@ class Game:
         self.LIVES_TXT = Text(f"Lives Left: {self.LIVES}")
 
         # Bricks
-        self.BRICKS =
-        self.placeBricks()
+        self.BRICKS = []
+        for brick in Image.BRICKS:
+            self.BRICKS.append(ImageSprite(brick).setScale(2))
 
         # Coins
         self.COINS = 0
@@ -44,10 +63,20 @@ class Game:
         self.GAME_OVER_TXT = Text("Game Over!", COLOR=Color.RED)
         self.GAME_OVER = False
         self.GAME_OVER_TXT.setFontSize(50)
-        self.GAME_OVER_TXT.setPOS((self.WINDOW.getVirtualWidth()-self.GAME_OVER_TXT.getWidth())//2, (self.WINDOW.getVirtualHeight()-self.GAME_OVER_TEXT.getHeight())//2)
+        self.GAME_OVER_TXT.setPOS((self.WINDOW.getVirtualWidth()-self.GAME_OVER_TXT.getWidth())//2, (self.WINDOW.getVirtualHeight()-self.GAME_OVER_TXT.getHeight())//2)
 
-    def placeBricks(self):
+    def initiateStartMenu(self):
+        self.WINDOW.clearScreen()
+        self.WINDOW.getScreen().blit(self.TITLE.getScreen(), self.TITLE.getPOS())
+        self.WINDOW.getScreen().blit(self.EASY_IMG.getScreen(), self.EASY_IMG.getPOS())
+        self.WINDOW.getScreen().blit(self.MED_IMG.getScreen(), self.MED_IMG.getPOS())
+        self.WINDOW.getScreen().blit(self.HARD_IMG.getScreen(), self.HARD_IMG.getPOS())
+        self.WINDOW.updateFrame()
+
+    def placeBricks(self, levels):
         # Place bricks on screen
+        while True:
+            self.WINDOW.getScreen().blit()
 
     def getSpriteCollision(self, SPRITE, SPRITE2):
         if pygame.Rect.colliderect(SPRITE.getRect(), SPRITE2.getRect()):
@@ -62,6 +91,12 @@ class Game:
             self.TIME_TXT.setText(f"Time Left: {self.TIME_LEFT}")
             self.TIMER_MS = 0
 
+    def initiateLevel(self):
+        self.WINDOW.clearScreen()
+        self.WINDOW.setBackgroundImage(Image.BACKGROUND)
+        if self.DIFFICULTY == 1:
+            self.placeBricks(3)
+
     def run(self):
         while True:
             # inputs
@@ -69,6 +104,22 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
+            self.initiateStartMenu()
+            if self.GAME_OVER:
+                self.initiateStartMenu()
+                if pygame.mouse.get_pressed(1)[0] and pygame.Rect.colliderect(self.EASY_IMG.RECT, pygame.mouse.get_pos()):
+                    self.DIFFICULTY = 1
+                    self.GAME_OVER = False
+                elif pygame.mouse.get_pressed(1)[0] and pygame.Rect.colliderect(self.MED_IMG.RECT, pygame.mouse.get_pos()):
+                    self.DIFFICULTY = 2
+                    self.GAME_OVER = False
+                elif pygame.mouse.get_pressed(1)[0] and pygame.Rect.colliderect(self.HARD_IMG.RECT, pygame.mouse.get_pos()):
+                    self.DIFFICULTY = 3
+                    self.GAME_OVER = False
+            else:
+                self.initiateLevel()
+
+            """
             if not self.GAME_OVER:
                 KEYS_PRESSED = pygame.key.get_pressed()
                 # processing
@@ -89,3 +140,4 @@ class Game:
             else:
                 self.WINDOW.getScreen().blit(self.GAME_OVER_TXT.getScreen(), self.GAME_OVER_TXT.getPOS())
                 self.WINDOW.updateFrame()
+"""

@@ -14,3 +14,11 @@ class Color:
     MAGENTA = (255, 9, 255)
 
 
+class Image():
+    EASY = "assets/easylvl.png"
+    MED = "assets/midlvl.png"
+    HARD = "assets/hardlvl.png"
+    BRICKS = ["assets/brick.png", "assets/brick1.png", "assets/brick2.png"]
+    TITLE = "assets/brickbreakertitle.png"
+    PLAYER = "assets/bunny.png"
+    BACKGROUND = "assets/background.jpg"

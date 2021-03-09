@@ -9,7 +9,7 @@ from imageSprite import ImageSprite
 from loader import Color
 
 class Window:
-    def __init__(self, TITLE="Pygame", WIDTH=640, HEIGHT=480, FPS=60):
+    def __init__(self, TITLE="Brick Breaker", WIDTH=640, HEIGHT=480, FPS=60):
         self.TITLE = TITLE
         self.WIDTH = WIDTH
         self.HEIGHT = HEIGHT

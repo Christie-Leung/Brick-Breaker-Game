@@ -5,5 +5,6 @@ Date Created: 2021-03-08
 """
 from game import Game
 
-GAME = Game()
-GAME.run()
+if __name__ == '__main__':
+    GAME = Game()
+    GAME.run()
