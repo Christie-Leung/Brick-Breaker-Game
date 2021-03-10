@@ -6,6 +6,7 @@ Date Created: 2021-03-08
 
 import pygame
 
+
 class Sprite:
     def __init__(self):
         self.WIDTH = 0
@@ -15,10 +16,15 @@ class Sprite:
         self.X = 0
         self.Y = 0
         self.POS = (self.X, self.Y)
-        self.SPEED = 3
+        self.SPEED = 4
         self.RECT = None
+        self.DIR_X = 1
+        self.DIR_Y = -1
 
     # Modifier
+    def setSpeed(self, speed):
+        self.SPEED = speed
+
     def setPOS(self, X, Y):
         self.X = X
         self.Y = Y
@@ -30,34 +36,47 @@ class Sprite:
     def updateDimension(self):
         self.DIMENSION = (self.WIDTH, self.HEIGHT)
 
-    ## Movement
+    def reset(self):
+        self.DIR_X = 1
+        self.DIR_Y = -1
 
-    def wasdMove(self, KEYPRESSES):
+    def invertDir(self, X, Y):
+        if X:
+            self.DIR_X = -self.DIR_X
+        if Y:
+            self.DIR_Y = -self.DIR_Y
+
+    ## Movement
+    def adMove(self, KEYPRESSES):
         if KEYPRESSES[pygame.K_d] == 1:
             self.X += self.SPEED
         if KEYPRESSES[pygame.K_a] == 1:
             self.X -= self.SPEED
-        if KEYPRESSES[pygame.K_w] == 1:
-            self.Y -= self.SPEED
-        if KEYPRESSES[pygame.K_s] == 1:
-            self.Y += self.SPEED
         self.POS = (self.X, self.Y)
 
-    def checkBoundaries(self, MAX_WIDTH, MAX_HEIGHT, MIN_WIDTH=0, MIN_HEIGHT=0):
+    def checkBoundaries(self, MAX_WIDTH, MIN_WIDTH=0):
         if self.X > MAX_WIDTH - self.getWidth():
             self.X = MAX_WIDTH - self.getWidth()
         elif self.X < MIN_WIDTH:
             self.X = MIN_WIDTH
-        if self.Y > MAX_HEIGHT - self.getHeight():
-            self.Y = MAX_HEIGHT - self.getHeight()
-        elif self.Y < MIN_HEIGHT:
-            self.Y = MIN_HEIGHT
         self.updatePOS()
 
-    def wasdMoveChkBoundaries(self, KEYPRESSES, MAX_WIDTH, MAX_HEIGHT, MIN_WIDTH=0, MIN_HEIGHT=0):
-        self.wasdMove(KEYPRESSES)
-        self.checkBoundaries(MAX_WIDTH, MAX_HEIGHT, MIN_WIDTH, MIN_HEIGHT)
+    def adMoveChkBoundaries(self, KEYPRESSES, MAX_WIDTH,MIN_WIDTH=0):
+        self.adMove(KEYPRESSES)
+        self.checkBoundaries(MAX_WIDTH, MIN_WIDTH)
 
+    def bounce(self, SCREEN):
+        self.X = self.X + self.DIR_X * self.SPEED
+        self.Y = self.Y + self.DIR_Y * self.SPEED
+        if self.X > SCREEN.getVirtualWidth() - self.getWidth():
+            self.DIR_X = -1
+        if self.X < 0:
+            self.DIR_X = 1
+        if self.Y < 0:
+            self.DIR_Y = 1
+        if self.Y > SCREEN.getVirtualHeight() - self.getHeight():
+            self.DIR_Y = -1
+        self.POS = (self.X, self.Y)
 
     # Accessor
     def getScreen(self):
