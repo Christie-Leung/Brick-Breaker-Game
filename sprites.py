@@ -68,15 +68,22 @@ class Sprite:
     def bounce(self, SCREEN):
         self.X = self.X + self.DIR_X * self.SPEED
         self.Y = self.Y + self.DIR_Y * self.SPEED
+        CHANGED = False
         if self.X > SCREEN.getVirtualWidth() - self.getWidth():
             self.DIR_X = -1
+            CHANGED = True
         if self.X < 0:
             self.DIR_X = 1
+            CHANGED = True
         if self.Y < 0:
             self.DIR_Y = 1
-        if self.Y > SCREEN.getVirtualHeight() - self.getHeight():
+            CHANGED = True
+
+        """if self.Y > SCREEN.getVirtualHeight() - self.getHeight():
             self.DIR_Y = -1
+            CHANGED = True"""
         self.POS = (self.X, self.Y)
+        return CHANGED
 
     # Accessor
     def getScreen(self):
@@ -102,3 +109,6 @@ class Sprite:
         self.RECT.x = self.X
         self.RECT.y = self.Y
         return self.RECT
+
+    def getSpeed(self):
+        return self.SPEED

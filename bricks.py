@@ -14,6 +14,37 @@ class Brick(ImageSprite):
         self.COLLISION_TIME_LEFT = 100
         self.TIMER = pygame.time.Clock()
         self.STARTTIMER = False
+        self.X_WALLS = []
+        self.Y_WALLS = []
+        self.CORNERS = []
+
+    def updateWalls(self, SCREEN, SIZE=5):
+        self.X_WALLS = [pygame.draw.rect(SCREEN, pygame.Color(255, 255, 255, 200),
+                                         pygame.Rect(self.X + SIZE, self.Y, self.getWidth() - 2*SIZE, SIZE)),
+                        pygame.draw.rect(SCREEN, pygame.Color(255, 255, 255, 200),
+                                         pygame.Rect(self.X+SIZE, self.Y+self.getHeight()-SIZE, self.getWidth() - 2*SIZE, SIZE))]
+        self.Y_WALLS = [pygame.draw.rect(SCREEN, pygame.Color(255, 255, 255, 200),
+                                         pygame.Rect(self.X, self.Y + SIZE, SIZE, self.getHeight() - 2*SIZE)),
+                        pygame.draw.rect(SCREEN, pygame.Color(255, 255, 255, 200),
+                                         pygame.Rect(self.X+self.getWidth()-SIZE, self.Y+SIZE, SIZE, self.getHeight() - 2*SIZE))]
+        self.CORNERS = [pygame.draw.rect(SCREEN, pygame.Color(255, 255, 255, 200),
+                                         pygame.Rect(self.X, self.Y, SIZE, SIZE)),
+                        pygame.draw.rect(SCREEN, pygame.Color(255, 255, 255, 128),
+                                         pygame.Rect(self.X + self.getWidth()-SIZE, self.Y, SIZE, SIZE)),
+                        pygame.draw.rect(SCREEN, pygame.Color(255, 255, 255, 128),
+                                         pygame.Rect(self.X, self.Y + self.getHeight()-SIZE, SIZE, SIZE)),
+                        pygame.draw.rect(SCREEN, pygame.Color(255, 255, 255, 128),
+                                         pygame.Rect(self.X + self.getWidth()-SIZE, self.Y + self.getHeight()-SIZE, SIZE, SIZE))]
+
+        # Accessor
+    def getXWalls(self):
+        return self.X_WALLS
+
+    def getYWalls(self):
+        return self.Y_WALLS
+
+    def getCorners(self):
+        return self.CORNERS
 
     # Modifier
     def startTimer(self):
@@ -35,4 +66,5 @@ class Brick(ImageSprite):
 
     # Accessor
     def uptime(self):
+        self.updateTimer()
         return self.COLLISION_TIME_LEFT

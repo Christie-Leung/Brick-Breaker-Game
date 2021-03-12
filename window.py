@@ -16,7 +16,7 @@ class Window:
         self.FPS = FPS
         self.SCREEN_DIMENSIONS = (self.WIDTH, self.HEIGHT)
         self.FRAME = pygame.time.Clock()
-        self.SCREEN = pygame.display.set_mode(self.SCREEN_DIMENSIONS)
+        self.SCREEN = pygame.display.set_mode(self.SCREEN_DIMENSIONS, pygame.SRCALPHA, 32)
         self.BACKGROUND = Color.GREY
         self.BACKGROUND_IMAGE = None
         self.SCREEN.fill(self.BACKGROUND)
@@ -32,6 +32,9 @@ class Window:
             self.SCREEN.fill(self.BACKGROUND)
         else:
             self.SCREEN.blit(self.BACKGROUND_IMAGE.getScreen(), self.BACKGROUND_IMAGE.getPOS())
+            s = pygame.Surface((self.WIDTH, self.HEIGHT), pygame.SRCALPHA)  # per-pixel alpha
+            s.fill((0, 0, 0, 128))  # notice the alpha value in the color
+            self.SCREEN.blit(s, (0, 0))
 
 
     def setBackgroundColor(self, COLOR):
