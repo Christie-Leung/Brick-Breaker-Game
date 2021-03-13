@@ -48,9 +48,9 @@ class Sprite:
 
     ## Movement
     def adMove(self, KEYPRESSES):
-        if KEYPRESSES[pygame.K_d] == 1:
+        if KEYPRESSES[pygame.K_d] == 1 or KEYPRESSES[pygame.K_RIGHT] == 1:
             self.X += self.SPEED
-        if KEYPRESSES[pygame.K_a] == 1:
+        if KEYPRESSES[pygame.K_a] == 1 or KEYPRESSES[pygame.K_LEFT] == 1:
             self.X -= self.SPEED
         self.POS = (self.X, self.Y)
 

@@ -229,7 +229,7 @@ class Game:
                 if COL:
                     IMAGE = self.BRICKS[x].getImage()
                     INDEX = Image.BRICKS.index(IMAGE)
-                    if INDEX < 2:
+                    if INDEX < self.DIFFICULTY-1:
                         self.BRICKS[x].setImage(Image.BRICKS[INDEX + 1])
                         self.WINDOW.getScreen().blit(self.BRICKS[x].getScreen(), self.BRICKS[x].getPOS())
                     else:
@@ -332,22 +332,25 @@ class Game:
                 self.initiateStartMenu()
                 if self.EASY_IMG.getRect().collidepoint(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
                     x = ImageSprite(Image.HOVEREASY)
-                    self.blit(x)
+                    x.setScale(2)
+                    self.WINDOW.getScreen().blit(x.getScreen(), self.EASY_IMG.getPOS())
                     if pygame.mouse.get_pressed(3)[0]:
                         self.DIFFICULTY = 1
                         self.startGame(3)
-                elif pygame.mouse.get_pressed(3)[0] and self.MED_IMG.getRect().collidepoint(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
+                elif self.MED_IMG.getRect().collidepoint(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
                     x = ImageSprite(Image.HOVERMED)
-                    self.blit(x)
+                    x.setScale(2)
+                    self.WINDOW.getScreen().blit(x.getScreen(), self.MED_IMG.getPOS())
                     if pygame.mouse.get_pressed(3)[0]:
                         self.DIFFICULTY = 2
-                        self.startGame(2)
+                        self.startGame(4)
                 elif self.HARD_IMG.getRect().collidepoint(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
                     x = ImageSprite(Image.HOVERHARD)
-                    self.blit(x)
+                    x.setScale(2)
+                    self.WINDOW.getScreen().blit(x.getScreen(), self.HARD_IMG.getPOS())
                     if pygame.mouse.get_pressed(3)[0]:
                         self.DIFFICULTY = 3
-                        self.startGame(1)
+                        self.startGame(5)
                 self.WINDOW.updateFrame()
             elif not self.STARTGAME and not self.GAME_OVER and not self.MENU:
                 self.WINDOW.clearScreen()
