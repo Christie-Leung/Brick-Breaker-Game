@@ -1,31 +1,51 @@
 # CSE3130 Project - Brick Breaker
 
-This program is made in Python 3.8 and requires pygame to be installed. Assets folder included in this repository holds
-all images used in game.
+This program is made in Python 3.8.1 and requires pygame to be installed (Version 2.0.1). Asset folder included in this
+repository holds all images used in game.
 
-## Game Description & Objective
+# Game Description & Instructions
 
 The user is first prompted with a start menu, allowing them to choose their desired difficulty level. Once the
 difficulty level has been chosen, the game will be initiated with bricks at the top, and a ball at the bottom.
 
-[Start Menu](assets/startMenu.png)
+![Start Menu](assets/startMenu.png)
 
-__Objective__: Control the bar at the bottom by _using your a and d or left and right key_ to allow the ball to bounce
+Once a level has been chosen, it will prompt users to press the spacebar before beginning. **This repeats for any time
+the player dies**
+
+![Pause](assets/pause.png)
+
+__Objective__: Control the bar at the bottom by **using your a and d or left and right key** to allow the ball to bounce
 back up, hitting all the bricks to successfully win the game.
 
-[Game](assets/game.png)
+![Game](assets/game.png)
 
 Some bricks will drop coins in which the player would need to __use the mouse to click on it__ in order to collect it.
 Once the coin's timer runs out, it will disappear, and the player will lose the opportunity to collect them.
 
 These coins allow players to customize the layout of the game.
 
-[Store Menu](assets/storeMenu.png)
+![Store Menu](assets/storeMenu.png)
 
-## Project Flowchart & UML Table
+## Extra Features Included:
 
-[Flowchart](ProjectFlowchart.png)
-[UMLTable](ProjectUml.png)
+#### Hoverable Buttons:
+
+Buttons will change colour to indicate that your cursor is on top of it
+![Hover](assets/hover.png)
+
+#### Brick Durability (Only available in higher levels)
+
+![Durability](assets/durability.png)
+
+- Coins
+- Start Menu, Shop Menu
+- Customizable items
+
+# Planning
+
+![Flowchart](ProjectFlowchart.png)
+![UMLTable](ProjectUml.png)
 
 ### Encapsulation
 

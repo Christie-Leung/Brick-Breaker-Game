@@ -22,7 +22,7 @@ class Window:
         self.BACKGROUND = Color.GREY
         self.BACKGROUND_IMAGE = None
         self.SCREEN.fill(self.BACKGROUND)
-        self.CAPTION = pygame.display.set_caption(self.TITLE)
+        pygame.display.set_caption(self.TITLE)
 
     # Modifier
     def updateFrame(self):

@@ -111,14 +111,14 @@ class Game:
 
         # Places "Store" Text at the top of screen
         STORE_TEXT = Text("Store")
-        STORE_TEXT.setPOS((self.WINDOW.getVirtualWidth() - STORE_TEXT.getWidth()) // 2, 5)
+        STORE_TEXT.setPOS((self.WINDOW.getVirtualWidth() - STORE_TEXT.getWidth()) // 2, 10)
         self.blit(STORE_TEXT)
 
         # Displays all customizable items in a neat format
         X = 0
         Y = 0
         WIDTH = self.WINDOW.getVirtualWidth() // 3
-        PADDING = STORE_TEXT.getY() + STORE_TEXT.getHeight() + 10
+        PADDING = STORE_TEXT.getY() + STORE_TEXT.getHeight()
         HEIGHT = (self.WINDOW.getVirtualHeight() - 4 * PADDING) // 2
         NEW_CUSTOMIZATION = []
         for item in self.CUSTOMIZATION:
@@ -204,7 +204,7 @@ class Game:
         for x in range(lives):
             heart = ImageSprite(Image.HEART)
             heart.setScale(8)
-            heart.setPOS(2 + SPACING, 2)
+            heart.setPOS(5 + SPACING, 5)
             self.LIVES.append(heart)
             SPACING += heart.getWidth() + 2
         self.WINDOW.clearScreen()
@@ -363,7 +363,7 @@ class Game:
     def updateCoins(self):
         # Updates Coin text
         self.COINS_TXT = Text(f"Coins: {self.SCORE}")
-        self.COINS_TXT.setPOS(self.WINDOW.getVirtualWidth() - self.COINS_TXT.getWidth(), 0)
+        self.COINS_TXT.setPOS(self.WINDOW.getVirtualWidth() - self.COINS_TXT.getWidth() - 5, 5)
 
     def checkCoins(self):
         """
@@ -428,6 +428,8 @@ class Game:
                 if len(self.BRICKS) == 0:  # Game Cleared
                     self.GAME_OVER = True
                     self.STARTGAME = False
+                    self.SCORE += 10 * self.DIFFICULTY
+                    self.updateCoins()
                     self.GAME_OVER_TXT.setText("Level Cleared!")
                     self.GAME_OVER_TXT.setColor(Color.GREEN)
                     self.setMid(self.GAME_OVER_TXT)
@@ -533,7 +535,7 @@ class Game:
                 # Back Button
                 BACK = Text("<- Back")
                 BACK.setColor(Color.GREEN)
-                BACK.setPOS(0, 0)
+                BACK.setPOS(10, 10)
                 self.blit(BACK)
                 if pygame.mouse.get_pressed(3)[0] and BACK.getRect().collidepoint(pygame.mouse.get_pos()[0],
                                                                                   pygame.mouse.get_pos()[1]):
