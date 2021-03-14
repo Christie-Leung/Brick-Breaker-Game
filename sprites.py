@@ -3,9 +3,7 @@ Title: Sprite Class
 Author: Christie Leung
 Date Created: 2021-03-08
 """
-
 import pygame
-
 
 class Sprite:
     def __init__(self):
@@ -41,6 +39,7 @@ class Sprite:
         self.DIR_Y = -1
 
     def invertDir(self, X, Y):
+        # Invert certain direction depending on input
         if X:
             self.DIR_X = -self.DIR_X
         if Y:
@@ -78,10 +77,6 @@ class Sprite:
         if self.Y < 0:
             self.DIR_Y = 1
             CHANGED = True
-
-        """if self.Y > SCREEN.getVirtualHeight() - self.getHeight():
-            self.DIR_Y = -1
-            CHANGED = True"""
         self.POS = (self.X, self.Y)
         return CHANGED
 
@@ -109,6 +104,3 @@ class Sprite:
         self.RECT.x = self.X
         self.RECT.y = self.Y
         return self.RECT
-
-    def getSpeed(self):
-        return self.SPEED

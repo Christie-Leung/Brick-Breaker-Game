@@ -14,17 +14,30 @@ class Color:
     MAGENTA = (255, 9, 255)
 
 class Image():
+    # Start Menu
     EASY = "assets/easylvl.png"
     MED = "assets/midlvl.png"
     HARD = "assets/hardlvl.png"
-    BRICKS = ["assets/brick.png", "assets/brick1.png", "assets/brick2.png"]
-    TITLE = "assets/brickbreakertitle.png"
-    PLAYER = "assets/images.png"
-    BACKGROUND1 = "assets/background.jpg"
-    BACKGROUND = "assets/basicbackground.jpg"
-    WRECKITRALPH = "assets/wreckitralph.png"
-    HEART = "assets/heart.png"
-    COIN = "assets/coin.png"
+    SHOP = "assets/shop.png"
+    # Hovers
     HOVEREASY = "assets/hovereasy.png"
     HOVERMED = "assets/hovermed.png"
     HOVERHARD = "assets/hoverhard.png"
+    HOVERSHOP = "assets/hovershop.png"
+
+    # Utilities
+    BRICKS = ["assets/brick.png", "assets/brick1.png", "assets/brick2.png"]
+    TITLE = "assets/brickbreakertitle.png"
+    HEART = "assets/heart.png"
+    COIN = "assets/coin.png"
+    PLAYER = "assets/images.png"
+
+    # Backgrounds
+    BACKGROUND = "assets/basicbackground.jpg"
+    BACKGROUND1 = "assets/background.jpg"
+    BACKGROUND2 = "assets/background2.jpg"
+
+    # Balls
+    WRECKITRALPH = "assets/wreckitralph.png"
+    BALL1 = "assets/ball1.png"
+    BALL2 = "assets/ball2.png"

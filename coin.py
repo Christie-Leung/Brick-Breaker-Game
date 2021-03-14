@@ -3,8 +3,10 @@ Title: Coin class
 Author: Christie Leung
 Date Created: 2021-03-11
 """
-from imageSprite import ImageSprite
 import pygame
+
+from imageSprite import ImageSprite
+
 
 class Coin(ImageSprite):
     def __init__(self, IMAGE_FILE):
@@ -14,6 +16,7 @@ class Coin(ImageSprite):
         self.TIME_MS = 0
 
     def updateTimer(self):
+        # Timer for each coin to determine whether 5 seconds have passed
         self.TIME_MS += self.TIMER.tick()
         if self.TIME_MS > 1000 and self.TIME_LEFT != 0:
             self.TIME_MS = 0
@@ -21,5 +24,3 @@ class Coin(ImageSprite):
             return False
         elif self.TIME_LEFT == 0:
             return True
-
-

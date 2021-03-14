@@ -5,8 +5,10 @@ Date Created: 2021-03-08
 """
 
 import pygame
+
 from imageSprite import ImageSprite
 from loader import Color
+
 
 class Window:
     def __init__(self, TITLE="Brick Breaker", WIDTH=640, HEIGHT=480, FPS=60):
@@ -36,7 +38,6 @@ class Window:
             s.fill((0, 0, 0, 128))  # notice the alpha value in the color
             self.SCREEN.blit(s, (0, 0))
 
-
     def setBackgroundColor(self, COLOR):
         self.BACKGROUND = COLOR
         self.clearScreen()
@@ -58,16 +59,3 @@ class Window:
 
     def getVirtualHeight(self):
         return self.SCREEN.get_rect().height
-
-if __name__ == '__main__':
-    pygame.init()
-    WINDOW = Window()
-    RUNNING = True
-
-    while RUNNING:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                RUNNING = False
-                pygame.quit()
-                exit()
-        WINDOW.updateFrame()
