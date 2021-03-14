@@ -8,6 +8,7 @@ import pygame
 from imageSprite import ImageSprite
 
 
+# Inheritance of ImageSprite Class
 class Coin(ImageSprite):
     def __init__(self, IMAGE_FILE):
         super().__init__(IMAGE_FILE)

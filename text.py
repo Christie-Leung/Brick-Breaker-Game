@@ -10,6 +10,7 @@ from loader import Color
 from sprites import Sprite
 
 
+## Inheritance of Sprite Class
 class Text(Sprite):
     def __init__(self, TEXT="Hello World", COLOR=Color.WHITE):
         super().__init__()

@@ -9,6 +9,7 @@ import pygame
 from imageSprite import ImageSprite
 
 
+# Inheritance of ImageSprite Class
 class Brick(ImageSprite):
     def __init__(self, IMAGE_FILE):
         super().__init__(IMAGE_FILE)

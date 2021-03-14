@@ -3,6 +3,8 @@
 This program is made in Python 3.8.1 and requires pygame to be installed (Version 2.0.1). Asset folder included in this
 repository holds all images used in game.
 
+To run the program, please download all files and **run main.py**.
+
 # Game Description & Instructions
 
 The user is first prompted with a start menu, allowing them to choose their desired difficulty level. Once the

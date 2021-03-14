@@ -6,7 +6,7 @@ Date Created: 20211-03-13
 from imageSprite import ImageSprite
 from text import Text
 
-
+# Inheritance of ImageSprite Class
 class ShopItem(ImageSprite):
     def __init__(self, IMAGE_FILE, PRICE, ACTIVE=False):
         super().__init__(IMAGE_FILE)

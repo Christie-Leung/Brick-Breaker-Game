@@ -4,9 +4,12 @@ Author: Christie Leung
 Date Created: 2021-03-03
 """
 
-from sprites import Sprite
 import pygame
 
+from sprites import Sprite
+
+
+## Inheritance of Sprite Class
 class ImageSprite(Sprite):
     def __init__(self, IMAGE_FILE):
         super().__init__()
