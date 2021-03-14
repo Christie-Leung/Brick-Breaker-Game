@@ -149,23 +149,82 @@ class Game:
         X = 55
         X_PADDING = 20
         Y = 40
+        RAND_Y = Y
+        SPACE = 5
+        BRICK_WIDTH = self.TEMPLATE.getWidth()
         for i in range(levels):
-            WIDTHLEFT = self.WINDOW.getVirtualWidth() - (2 * X_PADDING)
-            SPACE = 5
-            BRICK_WIDTH = self.TEMPLATE.getWidth()
-            if (i+1) % 2 == 0:
-                WIDTHLEFT -= BRICK_WIDTH
-            while WIDTHLEFT - BRICK_WIDTH > 0:
-                WIDTHLEFT -= BRICK_WIDTH + SPACE
-                BRICK = Brick(Image.BRICKS[0])
-                BRICK.setScale(5)
-                BRICK.setPOS(X, Y)
+            Y_SPACE = randrange(5, 30)
+            if self.DIFFICULTY == 1:
+                WIDTHLEFT = self.WINDOW.getVirtualWidth() - (2 * X_PADDING)
+                if (i + 1) % 2 == 0:
+                    WIDTHLEFT -= BRICK_WIDTH
+                while WIDTHLEFT - BRICK_WIDTH > 0:
+                    WIDTHLEFT -= BRICK_WIDTH + SPACE
+                    BRICK = Brick(Image.BRICKS[0])
+                    BRICK.setScale(5)
+                    BRICK.setPOS(X, Y)
+                    X += BRICK_WIDTH + SPACE
+                    self.BRICKS.append(BRICK)
+                    BRICK.updateWalls(self.WINDOW.getScreen())
+                    self.blit(BRICK)
+            elif self.DIFFICULTY == 2:
+                VERTICAL = 55
                 X += BRICK_WIDTH + SPACE
-                self.BRICKS.append(BRICK)
-                BRICK.updateWalls(self.WINDOW.getScreen())
-                self.blit(BRICK)
+                for x in range(2):
+                    BRICK = Brick(Image.BRICKS[0])
+                    BRICK.setScale(5)
+                    BRICK.setPOS(VERTICAL, RAND_Y)
+                    self.BRICKS.append(BRICK)
+                    BRICK.updateWalls(self.WINDOW.getScreen())
+                    self.blit(BRICK)
+                    VERTICAL = self.WINDOW.getVirtualWidth() - VERTICAL - BRICK_WIDTH - SPACE
+                WIDTHLEFT = self.WINDOW.getVirtualWidth() - 2 * X
+                if (i + 1) % 2 == 0:
+                    WIDTHLEFT -= BRICK_WIDTH
+                NUM = WIDTHLEFT // (BRICK_WIDTH + SPACE)
+                print(NUM)
+                WIDTHLEFT = (NUM * BRICK_WIDTH) + ((NUM - 1) * SPACE)
+                X += self.WINDOW.getVirtualWidth() / 2 - WIDTHLEFT / 2 - X
+                while WIDTHLEFT - BRICK_WIDTH >= 0:
+                    WIDTHLEFT -= (BRICK_WIDTH + SPACE)
+                    BRICK = Brick(Image.BRICKS[0])
+                    BRICK.setScale(5)
+                    BRICK.setPOS(X, RAND_Y)
+                    X += BRICK_WIDTH + SPACE
+                    self.BRICKS.append(BRICK)
+                    BRICK.updateWalls(self.WINDOW.getScreen())
+                    self.blit(BRICK)
+            elif self.DIFFICULTY == 3:
+                if i % 2 == 0:
+                    VERTICAL = 35 + 2 * BRICK_WIDTH // 5
+                else:
+                    VERTICAL = 35
+                X = VERTICAL
+                X += BRICK_WIDTH + SPACE
+                for x in range(2):
+                    BRICK = Brick(Image.BRICKS[0])
+                    BRICK.setScale(5)
+                    BRICK.setPOS(VERTICAL, RAND_Y)
+                    self.BRICKS.append(BRICK)
+                    BRICK.updateWalls(self.WINDOW.getScreen())
+                    self.blit(BRICK)
+                    VERTICAL = self.WINDOW.getVirtualWidth() - VERTICAL - BRICK_WIDTH - SPACE
+                WIDTHLEFT = self.WINDOW.getVirtualWidth() - 2 * X - BRICK_WIDTH - SPACE
+                while WIDTHLEFT - BRICK_WIDTH >= 0:
+                    TEMPSPACE = X
+                    X += randrange(WIDTHLEFT)
+                    TEMPSPACE = X - TEMPSPACE
+                    WIDTHLEFT -= (BRICK_WIDTH + SPACE + TEMPSPACE)
+                    BRICK = Brick(Image.BRICKS[0])
+                    BRICK.setScale(5)
+                    BRICK.setPOS(X, RAND_Y)
+                    X += BRICK_WIDTH + SPACE
+                    self.BRICKS.append(BRICK)
+                    BRICK.updateWalls(self.WINDOW.getScreen())
+                    self.blit(BRICK)
+            RAND_Y += self.TEMPLATE.getHeight() + Y_SPACE
             if i % 2 == 0:
-                X = 55 + BRICK_WIDTH//2
+                X = 55 + BRICK_WIDTH // 2
             else:
                 X = 55
             Y += SPACE + self.TEMPLATE.getHeight()
@@ -184,8 +243,17 @@ class Game:
             self.initiateBricks(4)
             self.BALL.setSpeed(6)
         if self.DIFFICULTY == 3:
-            self.initiateBricks(5)
-            self.BALL.setSpeed(8)
+            self.initiateBricks(randrange(4, 8))
+            self.BALL.setSpeed(randrange(2, 12))
+            if self.BALL.getSpeed() < 4:
+                self.LIVES.pop(3)
+                self.LIVES.pop(2)
+                self.LIVES.pop(1)
+            elif self.BALL.getSpeed() < 6:
+                self.LIVES.pop(3)
+                self.LIVES.pop(2)
+            elif self.BALL.getSpeed() < 8:
+                self.LIVES.pop(3)
 
     def startGame(self, lives):
         """
@@ -467,7 +535,7 @@ class Game:
                     self.WINDOW.getScreen().blit(x.getScreen(), self.EASY_IMG.getPOS())
                     if pygame.mouse.get_pressed(3)[0]:
                         self.DIFFICULTY = 1
-                        self.startGame(3)
+                        self.startGame(2)
                 # Intermediate Level
                 elif self.MED_IMG.getRect().collidepoint(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
                     x = ImageSprite(Image.HOVERMED)
@@ -475,7 +543,7 @@ class Game:
                     self.WINDOW.getScreen().blit(x.getScreen(), self.MED_IMG.getPOS())
                     if pygame.mouse.get_pressed(3)[0]:
                         self.DIFFICULTY = 2
-                        self.startGame(4)
+                        self.startGame(2)
                 # Hard Level
                 elif self.HARD_IMG.getRect().collidepoint(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
                     x = ImageSprite(Image.HOVERHARD)
@@ -483,7 +551,7 @@ class Game:
                     self.WINDOW.getScreen().blit(x.getScreen(), self.HARD_IMG.getPOS())
                     if pygame.mouse.get_pressed(3)[0]:
                         self.DIFFICULTY = 3
-                        self.startGame(5)
+                        self.startGame(4)
                 # Shop
                 elif self.SHOP.getRect().collidepoint(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
                     x = ImageSprite(Image.HOVERSHOP)

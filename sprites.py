@@ -104,3 +104,6 @@ class Sprite:
         self.RECT.x = self.X
         self.RECT.y = self.Y
         return self.RECT
+
+    def getSpeed(self):
+        return self.SPEED

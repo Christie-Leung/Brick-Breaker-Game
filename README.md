@@ -38,6 +38,10 @@ Buttons will change colour to indicate that your cursor is on top of it
 
 ![Durability](assets/durability.png)
 
+#### Random Bricks (Only available in Hard Level)
+
+![Random](assets/random.png)
+
 - Coins
 - Start Menu, Shop Menu
 - Customizable items
