@@ -1,4 +1,4 @@
-# CSE3130 Project - Brick Breaker
+# Brick Breaker
 
 This program is made in Python 3.8.1 and requires pygame to be installed (Version 2.0.1). Asset folder included in this
 repository holds all images used in game.
